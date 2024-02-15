@@ -7,6 +7,8 @@ export const lengthOfLongestSubstring = function (s) {
 	const charDic = {}
 	let startIndex = 0
 
+	const limitLength = new Set(s.split('')).size
+
 	while (startIndex < s.length) {
 		for (let i = startIndex; i < s.length; i++) {
 			const char = s[i]
@@ -16,22 +18,19 @@ export const lengthOfLongestSubstring = function (s) {
 				continue
 			}
 
-			if (charDic[char] > 0) {
-				const currentLength = Object.keys(charDic).filter((key) => {
-					return charDic[key] === 1
-				}).length
+			const currentLength = Object.keys(charDic).filter((key) => {
+				return charDic[key] === 1
+			}).length
 
-				if (currentLength > maxLength) {
-					maxLength = currentLength
-					if (maxLength === 5) {
-						console.log('update maxLength', startIndex, char, charDic)
-					}
-				}
-
-				Object.keys(charDic).forEach((key) => {
-					charDic[key] = undefined
-				})
+			if (currentLength > maxLength) {
+				maxLength = currentLength
 			}
+
+			Object.keys(charDic).forEach((key) => {
+				charDic[key] = undefined
+			})
+
+			break
 		}
 
 		const lastLength = Object.keys(charDic).filter((key) => {
@@ -39,6 +38,10 @@ export const lengthOfLongestSubstring = function (s) {
 		}).length
 
 		maxLength = maxLength > lastLength ? maxLength : lastLength
+
+		if (maxLength >= limitLength) {
+			return maxLength
+		}
 
 		Object.keys(charDic).forEach((key) => {
 			charDic[key] = undefined
