@@ -43,4 +43,10 @@ describe('test lengthOfLongestSubstring', () => {
 	test('#10', () => {
 		expect(lengthOfLongestSubstring('abcdeefghij')).toBe(6)
 	})
+	test('#11', () => {
+		expect(lengthOfLongestSubstring('abcdeefgabc')).toBe(6)
+	})
+	test('#12', () => {
+		expect(lengthOfLongestSubstring('abcdaefghi')).toBe(9)
+	})
 })
